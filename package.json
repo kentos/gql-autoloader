@@ -1,0 +1,26 @@
+{
+  "name": "gql-autoloader",
+  "version": "1.0.0",
+  "description": "autoload graphql typedefs and resolvers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kentos/gql-autoloader.git"
+  },
+  "keywords": [
+    "graphql",
+    "autoload"
+  ],
+  "author": "@kentos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kentos/gql-autoloader/issues"
+  },
+  "homepage": "https://github.com/kentos/gql-autoloader#readme",
+  "dependencies": {
+    "lodash.merge": "^4.6.2"
+  }
+}
