@@ -38,3 +38,7 @@ const apollo = new ApolloServer({
 })
 ```
 
+# Changelog
+1.1.0 - Adds recursively autoload<br>
+1.0.1 - Readme update<br>
+1.0.0 - Initial release
