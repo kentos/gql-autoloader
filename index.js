@@ -2,21 +2,46 @@ const fs = require('fs')
 const path = require('path')
 const merge = require('lodash.merge')
 
-module.exports = ({ dir, typeDefs, resolvers }) => {
-  const files = (fs.readdirSync(dir)).filter(f => f.indexOf('.js') > -1)
-  const loaded = files.map(name => {
-    if (name.indexOf('.js') > -1) {
-      const fullpath = path.join(dir, name)
-      const { typeDefs, resolvers } = require(fullpath)
-      return {
-        typeDefs,
-        resolvers,
-      }
+function testFileName(fileName) {
+  return fileName.indexOf('.js') > -1
+}
+
+function readJSFilesFromDir(dir) {
+  const sourceFiles = []
+  const readdir = fs.readdirSync(dir)
+  readdir.forEach(d => {
+    const entityPath = path.join(dir, d)
+    if (fs.statSync(entityPath).isDirectory()) {
+      readJSFilesFromDir(entityPath).forEach(f => {
+        sourceFiles.push(f)
+      })
     }
-    return undefined
+    if (testFileName(entityPath)) {
+      sourceFiles.push(entityPath)
+    }
+  })
+  return sourceFiles
+}
+
+function loadGQL(filePaths) {
+  return filePaths.map(name => {
+    if (!testFileName(name)) {
+      return undefined
+    }
+    const { typeDefs, resolvers } = require(path.join(__dirname, name))
+    return { typeDefs, resolvers }
   }).filter(o => o)
+}
+
+function readGQL({ dir, typeDefs, resolvers }) {
+  const files = readJSFilesFromDir(dir)
+  const loaded = loadGQL(files)
   return loaded.reduce((acc, curr) => ({
     typeDefs: [...acc.typeDefs, curr.typeDefs],
     resolvers: merge({}, acc.resolvers, curr.resolvers),
   }), { typeDefs: [typeDefs], resolvers })
 }
+
+module.exports = readGQL
+module.exports.readJSFilesFromDir = readJSFilesFromDir
+module.exports.loadGQL = loadGQL
