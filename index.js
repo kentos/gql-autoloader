@@ -28,7 +28,7 @@ function loadGQL(filePaths) {
     if (!testFileName(name)) {
       return undefined
     }
-    const { typeDefs, resolvers } = require(path.join(__dirname, name))
+    const { typeDefs, resolvers } = require(name)
     return { typeDefs, resolvers }
   }).filter(o => o)
 }
