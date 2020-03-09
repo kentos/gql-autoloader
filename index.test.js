@@ -12,7 +12,7 @@ describe('Read source files and require to read typeDefs and resolvers', () => {
   })
 
   it('should load gql typedefs and resolvers', () => {
-    const loaded = loadGQL(files.map(f => path.join('./', f)))
+    const loaded = loadGQL(files.map(f => path.join(__dirname, f)))
     expect.assertions(loaded.length)
     loaded.forEach(obj => {
       expect(obj.typeDefs && obj.resolvers).toBeTruthy()
