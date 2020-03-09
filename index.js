@@ -29,6 +29,9 @@ function loadGQL(filePaths) {
       return undefined
     }
     const { typeDefs, resolvers } = require(name)
+    if (!typeDefs && !resolvers) {
+      return undefined
+    }
     return { typeDefs, resolvers }
   }).filter(o => o)
 }
