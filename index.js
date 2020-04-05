@@ -36,15 +36,20 @@ function loadGQL(filePaths) {
   }).filter(o => o)
 }
 
+function reduceLoadedFiles({ loaded, typeDefs, resolvers }) {
+  return loaded.reduce((acc, curr) => ({
+    typeDefs: curr.typeDefs ? [...acc.typeDefs, curr.typeDefs] : acc.typeDefs,
+    resolvers: curr.resolvers ? merge({}, acc.resolvers, curr.resolvers) : acc.resolvers,
+  }), { typeDefs: [typeDefs], resolvers })
+}
+
 function readGQL({ dir, typeDefs, resolvers }) {
   const files = readJSFilesFromDir(dir)
   const loaded = loadGQL(files)
-  return loaded.reduce((acc, curr) => ({
-    typeDefs: [...acc.typeDefs, curr.typeDefs],
-    resolvers: merge({}, acc.resolvers, curr.resolvers),
-  }), { typeDefs: [typeDefs], resolvers })
+  return reduceLoadedFiles({ loaded, typeDefs, resolvers })
 }
 
 module.exports = readGQL
 module.exports.readJSFilesFromDir = readJSFilesFromDir
 module.exports.loadGQL = loadGQL
+module.exports.reduceLoadedFiles = reduceLoadedFiles
