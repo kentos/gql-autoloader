@@ -1,6 +1,6 @@
 {
   "name": "gql-autoloader",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "autoload graphql typedefs and resolvers",
   "main": "index.js",
   "scripts": {
