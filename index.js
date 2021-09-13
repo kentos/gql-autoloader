@@ -3,7 +3,7 @@ const path = require('path')
 const merge = require('lodash.merge')
 
 function testFileName(fileName) {
-  return fileName.indexOf('.js') > -1
+  return fileName.indexOf('.js') > -1 || fileName.indexOf('.ts') > -1
 }
 
 function readJSFilesFromDir(dir) {
