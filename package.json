@@ -1,6 +1,6 @@
 {
   "name": "gql-autoloader",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "autoload graphql typedefs and resolvers",
   "main": "index.js",
   "scripts": {
@@ -24,6 +24,6 @@
     "lodash.merge": "^4.6.2"
   },
   "devDependencies": {
-    "jest": "^25.2.7"
+    "jest": "^28.0.0"
   }
 }
